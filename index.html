@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحليل الكهربائي للمحاليل الشاردية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>التحليل الكهربائي للمحاليل الشاردية</h1>
+        <p class="subtitle">تجربة تفاعلية لتلاميذ السنة الرابعة متوسط</p>
+    </header>
+
+    <main class="container">
+        <!-- منطقة المحاكاة -->
+        <section class="simulation-area">
+            <div class="lab-controls">
+                <div class="control-group">
+                    <label for="solutionSelect">اختر المحلول:</label>
+                    <select id="solutionSelect">
+                        <option value="hcl">محلول كلور الهيدروجين (HCl)</option>
+                        <option value="cucl2">محلول كلور النحاس الثنائي (CuCl₂)</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <button id="powerBtn" class="btn btn-power">تشغيل الدارة</button>
+                    <button id="resetBtn" class="btn btn-reset">إعادة التجربة</button>
+                </div>
+            </div>
+
+            <div class="circuit-container">
+                <!-- الدارة الكهربائية -->
+                <div class="circuit-elements">
+                    <div class="battery"><span class="terminal plus">+</span><span class="terminal minus">-</span></div>
+                    <div class="switch open" id="circuitSwitch"></div>
+                    <div class="wires"></div>
+                    <div class="bulb" id="bulb"></div>
+                </div>
+
+                <!-- وعاء التحليل -->
+                <div class="beaker">
+                    <div class="electrode anode" id="anode">
+                        <div class="label">مسرى (+)</div>
+                        <div class="bubbles" id="anodeBubbles"></div>
+                    </div>
+                    <div class="electrode cathode" id="cathode">
+                        <div class="label">مسرى (-)</div>
+                        <div class="bubbles" id="cathodeBubbles"></div>
+                        <div class="deposit" id="cathodeDeposit"></div>
+                    </div>
+                    <div class="solution" id="solutionLiquid">
+                        <div class="ions" id="ionsContainer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="observation-panel">
+                <h3>الملاحظات والنتائج</h3>
+                <div id="observations" class="info-box">
+                    <p>قم باختيار المحلول وتشغيل الدارة لبدء التجربة.</p>
+                </div>
+                <div id="equations" class="info-box equation-box hidden">
+                    <!-- المعادلات ستظهر هنا -->
+                </div>
+            </div>
+        </section>
+
+        <!-- القسم البيداغوجي والأسئلة -->
+        <section class="educational-section">
+            <div class="safety-note">
+                <strong>⚠️ تنبيه أمان:</strong> هذه محاكاة افتراضية. في المختبر الحقيقي، يجب ارتداء القفازات والنظارات الواقية، والتعامل بحذر مع المحاليل والغازات المنطلقة (خاصة غاز الكلور السام).
+            </div>
+
+            <div class="quiz-container">
+                <h2>اختبر معلوماتك</h2>
+                <div class="question-card">
+                    <p id="questionText">ماذا نلاحظ عند المسرى الموجب عند تحليل محلول كلور الهيدروجين؟</p>
+                    <div class="options" id="quizOptions">
+                        <!-- الخيارات ستولد بالجافاسكريبت -->
+                    </div>
+                    <p id="feedback" class="feedback"></p>
+                </div>
+                <button id="nextQuestionBtn" class="btn hidden">السؤال التالي</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <button id="infoBtn" class="btn-small">لماذا المحلول الشاردي ناقل؟</button>
+    </footer>
+
+    <!-- نافذة منبثقة للشرح -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>النقل الكهربائي في المحاليل الشاردية</h3>
+            <p>المحاليل الشاردية تحتوي على شوارد (أيونات) موجبة وسالبة حرة الحركة.</p>
+            <p>عند غلق الدارة، تهاجر الشوارد الموجبة نحو المسرى السالب (المهبط) وتهاجر الشوارد السالبة نحو المسرى الموجب (المصعد).</p>
+            <p>هذه الحركة المزدوجة للشوارد هي التي تسمح بمرور التيار الكهربائي داخل المحلول.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
