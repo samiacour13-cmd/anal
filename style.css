@@ -519,3 +519,66 @@ footer {
     padding: 1rem;
     color: #6b7280;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        padding: 0 0.5rem;
+        gap: 1rem;
+    }
+
+    .simulation-area {
+        padding: 1rem;
+    }
+
+    .lab-controls {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .control-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .control-group button,
+    .control-group select {
+        width: 100%;
+    }
+
+    /* Scale down the circuit for mobile */
+    .circuit-container {
+        height: 320px;
+    }
+
+    .circuit-elements {
+        transform: scale(0.75);
+        transform-origin: top center;
+        width: 133%;
+        /* compensate for scale down to keep centering working if needed, or just let it center */
+        left: -16.5%;
+        /* centering the scaled element: (100 - 133)/2 */
+    }
+
+    /* Beaker fix for scale */
+    .beaker {
+        /* contained within circuit-elements so it scales with it */
+    }
+}
+
+@media (max-width: 480px) {
+    .circuit-container {
+        height: 280px;
+    }
+
+    .circuit-elements {
+        transform: scale(0.6);
+        width: 166%;
+        left: -33%;
+    }
+}
