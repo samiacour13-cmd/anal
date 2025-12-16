@@ -1,0 +1,521 @@
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #10b981;
+    --accent-color: #f59e0b;
+    --danger-color: #ef4444;
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-color: #1f2937;
+    --liquid-hcl: rgba(135, 206, 235, 0.4);
+    --liquid-cucl2: rgba(0, 191, 255, 0.6);
+    /* Blue for Copper Chloride */
+    --wire-color: #374151;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    direction: rtl;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color), #1e40af);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Simulation Area */
+.simulation-area {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.lab-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.control-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+select {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    transition: transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn-power {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-power.active {
+    background-color: var(--danger-color);
+}
+
+.btn-reset {
+    background-color: #6b7280;
+    color: white;
+}
+
+/* Circuit Visuals */
+.circuit-container {
+    position: relative;
+    height: 400px;
+    background: #f8fafc;
+    border-radius: 1rem;
+    border: 2px solid #e2e8f0;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 2rem;
+}
+
+.circuit-elements {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.battery {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 80px;
+    background: #333;
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.battery::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    width: 30px;
+    height: 10px;
+    background: #555;
+    border-radius: 4px 4px 0 0;
+}
+
+.terminal {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.terminal.plus {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.terminal.minus {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wires {
+    position: absolute;
+    top: 60px;
+    /* Battery center roughly */
+    left: 20%;
+    right: 20%;
+    height: 200px;
+    border: 4px solid var(--wire-color);
+    border-bottom: none;
+    z-index: 1;
+}
+
+/* Connecting wires to electrodes */
+.wires::after,
+.wires::before {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    width: 4px;
+    height: 50px;
+    background: var(--wire-color);
+}
+
+.wires::before {
+    left: 0;
+}
+
+.wires::after {
+    right: 0;
+}
+
+.switch {
+    position: absolute;
+    top: 40px;
+    right: 25%;
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+    border: 2px solid #999;
+}
+
+.switch.open {
+    transform: rotate(-30deg);
+    transform-origin: left center;
+}
+
+.switch.closed {
+    transform: rotate(0);
+}
+
+.bulb {
+    position: absolute;
+    top: 40px;
+    left: 25%;
+    width: 30px;
+    height: 30px;
+    background: #ddd;
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(255, 255, 0, 0);
+    transition: box-shadow 0.3s, background-color 0.3s;
+    z-index: 2;
+}
+
+.bulb.on {
+    background: #ffff00;
+    box-shadow: 0 0 20px #ffff00;
+}
+
+/* Beaker and Physics */
+.beaker {
+    position: relative;
+    width: 250px;
+    height: 200px;
+    border: 3px solid #cbd5e1;
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 5;
+}
+
+.solution {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background-color: var(--liquid-hcl);
+    border-radius: 0 0 17px 17px;
+    transition: background-color 0.5s;
+    overflow: hidden;
+}
+
+.electrode {
+    position: absolute;
+    top: -40px;
+    width: 20px;
+    height: 180px;
+    background: #4b5563;
+    z-index: 6;
+}
+
+.anode {
+    left: 40px;
+}
+
+.cathode {
+    right: 40px;
+}
+
+.label {
+    position: absolute;
+    top: -25px;
+    width: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #374151;
+}
+
+/* Animation Elements */
+.bubbles {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: rise 2s infinite linear;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(100px) scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+.green-gas .bubble {
+    background: rgba(186, 245, 186, 0.9);
+}
+
+/* Chlorine */
+
+.deposit {
+    position: absolute;
+    bottom: 0;
+    left: -2px;
+    right: -2px;
+    height: 0;
+    background: #b45309;
+    /* Copper color */
+    transition: height 5s linear;
+}
+
+.ions {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.ion {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease-in-out;
+}
+
+.ion.plus {
+    background: #ffadad;
+    color: #590000;
+}
+
+.ion.minus {
+    background: #cbf0f8;
+    color: #004a5e;
+}
+
+/* Observation Panel */
+.observation-panel {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.info-box {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.5rem;
+    border-right: 4px solid var(--primary-color);
+}
+
+.equation-box {
+    font-family: 'Courier New', monospace;
+    background: #1e293b;
+    color: #4ade80;
+    direction: ltr;
+    /* Equations look better LTR usually, but for Arabic context maybe mixed */
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Educational Section */
+.educational-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.safety-note {
+    background: #fef2f2;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #fecaca;
+    font-size: 0.9rem;
+}
+
+.quiz-container {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.question-card h3 {
+    margin-bottom: 1rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.option-btn {
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    background: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: right;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.option-btn:hover {
+    background: #f3f4f6;
+    border-color: var(--primary-color);
+}
+
+.option-btn.correct {
+    background: #d1fae5;
+    border-color: #10b981;
+}
+
+.option-btn.incorrect {
+    background: #fee2e2;
+    border-color: #ef4444;
+}
+
+.feedback {
+    min-height: 1.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1rem;
+    color: #6b7280;
+}
